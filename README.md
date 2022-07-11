@@ -1,4 +1,4 @@
-# nuxt_evermos_test
+# nuxt_app_test
 
 ## Build Setup
 
