@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card">
+  <div class="product-card" >
     <div class="product-tumb">
       <img :src="product.image" alt="" />
     </div>
@@ -14,8 +14,8 @@
       <div class="product-bottom-details">
         <div class="product-price">${{ product.price }}</div>
         <div class="product-links">
-          <a href="">Rate {{ product.rating.rate }}</a>
-          <a href="">Sold {{ product.rating.count }}</a>
+          <a >Rate {{ product.rating.rate }}</a>
+          <a >Sold {{ product.rating.count }}</a>
         </div>
       </div>
     </div>

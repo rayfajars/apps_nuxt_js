@@ -1,12 +1,15 @@
 <template>
   <div class="float-right count-navbar">
-    <a class="active">Wishlist <span>0</span></a>
-    <a class="active">Trolly <span>0</span></a>
+    <a class="active">Wishlist <span>{{wishlist}}</span></a>
+    <a class="active">Trolly <span>{{trolly}}</span></a>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  computed: mapState(["trolly",'wishlist']),
+};
 </script>
 
 <style>

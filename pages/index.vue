@@ -18,7 +18,10 @@
       </button>
     </template>
 
-    <div class="grid-container">
+    <div v-if="loading == true" class="loading-page">
+      <Loading />
+    </div>
+    <div v-if="loading == false" class="grid-container">
       <template v-for="(product, index) in products">
         <div class="column">
           <CardProduct :product="product" />
@@ -38,16 +41,25 @@ export default {
       limit: 8,
       apiSelected: "",
       apiProducts: this.$axios.defaults.baseURL,
-      apiCategory: this.$axios.defaults.baseURL +`/categories`,
+      apiCategory: this.$axios.defaults.baseURL + `/categories`,
       apiProductSelectedCategory: this.$axios.defaults.baseURL + `/category/`,
       getClickCategory: "",
+      loading: false,
     };
   },
   methods: {
+    // ...mapActions({
+    //   getProducts: "product/getProducts",
+    // }),
     async getProduct() {
-      const data = await this.$axios.$get(this.apiSelected);
+      this.loading = true;
+      const data = await this.$axios.$get(this.apiSelected, { progress: true });
+      // console.log(data);
 
-      this.products = data;
+      if (data) {
+        this.products = data;
+        this.loading = false;
+      }
     },
     async getCategory() {
       this.categorys = await this.$axios.$get(this.apiCategory);
@@ -55,9 +67,9 @@ export default {
     categoryClick(data) {
       if (data) {
         this.apiSelected =
-          this.apiProductSelectedCategory + data + `?limit=${this.limit}`;
+          this.apiProductSelectedCategory + data;
       } else {
-        this.apiSelected = this.apiProducts + `?limit=${this.limit}`;
+        this.apiSelected = this.apiProducts;
       }
 
       this.getClickCategory = data;
@@ -65,9 +77,15 @@ export default {
     },
   },
   mounted() {
-    this.apiSelected = this.apiProducts + `?limit=${this.limit}`;
+    this.apiSelected = this.apiProducts;
     this.getProduct();
     this.getCategory();
   },
+  //  created() {
+  //       this.getProducts()
+  //   },
+  //   computed: {
+  //       ...mapGetters('product', [ 'productsArray' ]),
+  //   },
 };
 </script>

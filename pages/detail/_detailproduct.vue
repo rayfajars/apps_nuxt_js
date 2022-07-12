@@ -1,9 +1,18 @@
 <template>
   <div>
     <NavBarDetail />
-    <ProductDetail :products="products" :rate="rate" :count="count" />
+    <div v-if="loading == true" class="loading-page">
+      <Loading />
+    </div>
+    <ProductDetail
+      :products="products"
+      :rate="rate"
+      :count="count"
+      v-if="loading == false"
+    />
     <h2 class="hr-bottom-full">Related <strong>Products</strong></h2>
-    <div class="grid-container">
+
+    <div class="grid-container" v-if="loading == false">
       <template v-for="(product, index) in relatedProduct">
         <div class="column" v-if="product.id != products.id">
           <CardProduct :product="product" />
@@ -28,21 +37,29 @@ export default {
       rate: 0,
       count: 0,
       relatedProduct: [],
+      loading: false,
     };
   },
   methods: {
     async getProduct() {
+      this.loading = true;
       const data = await this.$axios.$get(this.apiSelected);
       this.products = data;
       this.rate = data.rating.rate;
       this.count = data.rating.count;
+
       this.getRelatedProduct(data.category);
     },
     async getRelatedProduct(category) {
+      this.loading = true;
       const data = await this.$axios.$get(
         this.apiProductSelectedCategory + category + "?limit=5"
       );
-      this.relatedProduct = data;
+
+      if (data) {
+        this.relatedProduct = data;
+        this.loading = false;
+      }
     },
   },
   mounted() {

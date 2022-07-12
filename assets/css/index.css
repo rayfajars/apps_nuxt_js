@@ -167,3 +167,8 @@
   text-overflow: ellipsis;
   /* border: 1px solid #000000; */
 }
+
+
+.loading-page{
+    margin-top: 20%;
+}

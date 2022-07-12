@@ -24,53 +24,48 @@
           <div class="mb-3 form-group"></div>
 
           <div>
-            <button class="btn btn-success btn-sm float-right" type="submit">
-              Pesan
-            </button>
-            <button class="btn btn-success btn-sm float-right" type="submit">
+            <button @click="addTrolly" class="float-right">Pesan</button>
+            <button
+              @click="addWishlist"
+              class="btn btn-success btn-sm float-right"
+              type="submit"
+            >
               Wishlist
             </button>
           </div>
         </div>
-
-        <!-- <form class="mt-3" v-on:submit.prevent>
-          <div class="mb-3 form-group">
-            <label for="jumlah_pesanan" class="form-label"
-              >Jumlah Pesanan :
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              id="jumlah_pesanan"
-              min=""
-            />
-          </div>
-          <div class="mb-3 form-group">
-            <label for="keterangan" class="form-label"
-              >Keterangan Pesanan :
-            </label>
-            <textarea
-              name="keterangan"
-              id="keterangan"
-              class="form-control"
-              placeholder="Keterangan spt: Pedas, Nasi setengah .."
-              cols="20"
-              rows="5"
-            ></textarea>
-          </div>
-
-          <button class="btn btn-success btn-sm float-right" type="submit">
-            Pesan
-          </button>
-        </form> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "ProductDetail",
   props: ["products", "count", "rate"],
+  fetch({ store }) {
+    store.commit("addTrolly");
+    store.commit("addWishlist");
+  },
+  // computed: mapState(["trolly"]),
+  methods: {
+    addTrolly() {
+      this.alertSwal("Trolly");
+      this.$store.commit("addTrolly");
+    },
+    addWishlist() {
+      this.alertSwal("Wish List");
+      this.$store.commit("addWishlist");
+    },
+    alertSwal(type) {
+      this.$swal({
+        type: "success",
+        title: `Berhasil menambahkan product ke dalam ${type}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+  },
 };
 </script>
