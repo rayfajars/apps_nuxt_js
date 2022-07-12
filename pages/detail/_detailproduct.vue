@@ -1,7 +1,8 @@
 <template>
   <div>
-    <ProductDetail :products="products" :rate="rate" :count="count"/>
-    <h2>Related <strong>Products</strong></h2>
+    <NavBarDetail />
+    <ProductDetail :products="products" :rate="rate" :count="count" />
+    <h2 class="hr-bottom-full">Related <strong>Products</strong></h2>
     <div class="grid-container">
       <template v-for="(product, index) in relatedProduct">
         <div class="column" v-if="product.id != products.id">
@@ -14,14 +15,15 @@
 
 <script>
 import ProductDetail from "../../components/ProductDetail.vue";
+import NavBarDetail from "../../components/NavBarDetail.vue";
 export default {
   name: "DetailProduct",
   data() {
     return {
       products: [],
       apiSelected: "",
-      apiProducts: `https://fakestoreapi.com/products`,
-      apiProductSelectedCategory: `https://fakestoreapi.com/products/category/`,
+      apiProducts: this.$axios.defaults.baseURL,
+      apiProductSelectedCategory: this.$axios.defaults.baseURL + `/category/`,
       id: this.$route.params.detailproduct,
       rate: 0,
       count: 0,
@@ -47,7 +49,7 @@ export default {
     this.apiSelected = this.apiProducts + `/${this.id}`;
     this.getProduct();
   },
-  components: { ProductDetail },
+  components: { ProductDetail, NavBarDetail },
 };
 </script>
 
@@ -79,5 +81,35 @@ export default {
 .product-tumb-detail img {
   max-width: 500px;
   max-height: 500px;
+}
+
+.product-details .product-title {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  color: #c7f291;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 32px;
+}
+
+.product-catagory-detail {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.hr-bottom-full {
+  overflow: hidden;
+  border-bottom: 1px solid #000;
+  padding-bottom: 20px;
+}
+
+.margin-top {
+  margin-top: 25%;
 }
 </style>

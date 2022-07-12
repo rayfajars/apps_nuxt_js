@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <NavBar />
     <button
       class="button button-category"
       :class="getClickCategory == '' ? 'button-selected' : ''"
@@ -36,9 +37,9 @@ export default {
       categorys: [],
       limit: 8,
       apiSelected: "",
-      apiProducts: `https://fakestoreapi.com/products`,
-      apiCategory: "https://fakestoreapi.com/products/categories",
-      apiProductSelectedCategory: `https://fakestoreapi.com/products/category/`,
+      apiProducts: this.$axios.defaults.baseURL,
+      apiCategory: this.$axios.defaults.baseURL +`/categories`,
+      apiProductSelectedCategory: this.$axios.defaults.baseURL + `/category/`,
       getClickCategory: "",
     };
   },

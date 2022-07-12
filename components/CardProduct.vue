@@ -14,8 +14,8 @@
       <div class="product-bottom-details">
         <div class="product-price">${{ product.price }}</div>
         <div class="product-links">
-          <a href="">Like {{ product.rating.rate }}</a>
-          <a href="">Terjual {{ product.rating.count }}</a>
+          <a href="">Rate {{ product.rating.rate }}</a>
+          <a href="">Sold {{ product.rating.count }}</a>
         </div>
       </div>
     </div>
