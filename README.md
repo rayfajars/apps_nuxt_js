@@ -21,6 +21,8 @@ $ npm run generate
 ## URL DEPLOY 
 square-beef.surge.sh
 
+## API DIGUNAKAN
+https://fakestoreapi.com/
 
 
 
