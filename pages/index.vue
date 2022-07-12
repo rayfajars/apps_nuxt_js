@@ -44,15 +44,12 @@ export default {
   },
   methods: {
     async getProduct() {
-      const data = await this.$axios.$get(this.apiSelected) 
-      if(data){
-        this.products = data;
-      }else {
-        console.log('reload')
-      }
+      const data = await this.$axios.$get(this.apiSelected);
+
+      this.products = data;
     },
     async getCategory() {
-      this.categorys = await this.$axios.$get(this.apiCategory)
+      this.categorys = await this.$axios.$get(this.apiCategory);
     },
     categoryClick(data) {
       if (data) {
@@ -68,8 +65,8 @@ export default {
   },
   mounted() {
     this.apiSelected = this.apiProducts + `?limit=${this.limit}`;
-    this.getCategory();
     this.getProduct();
+    this.getCategory();
   },
 };
 </script>
